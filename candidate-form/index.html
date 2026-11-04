@@ -1,0 +1,1351 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Form thông tin ứng viên ・ 候補者情報フォーム — JTS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+--bg:#f4f6f8; --surface:#ffffff; --surface2:#eef2f5; --ink:#17222e; --ink2:#4c5b6b;
+--line:#d7dfe7; --accent:#0e5a52; --accent-ink:#ffffff; --accent-soft:#e3f0ed;
+--navy:#1b3a5c; --warn:#b3413c; --warn-soft:#fbeae9; --gold:#a86f14; --gold-soft:#fbf1dc;
+--ok:#177245; --ok-soft:#e5f3ea; --radius:14px;
+--shadow:0 1px 3px rgba(20,40,60,.08), 0 8px 24px rgba(20,40,60,.05);
+}
+@media (prefers-color-scheme: dark){
+:root{
+--bg:#10161d; --surface:#1a232e; --surface2:#232f3d; --ink:#e9eff5; --ink2:#a7b5c4;
+--line:#334353; --accent:#2ea79a; --accent-ink:#0c1a18; --accent-soft:#17332f;
+--navy:#9dbfdd; --warn:#e08a84; --warn-soft:#3c2423; --gold:#ddb266; --gold-soft:#38301c;
+--ok:#6fc794; --ok-soft:#1c3226;
+--shadow:0 1px 3px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
+}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:"Be Vietnam Pro","Noto Sans JP",system-ui,sans-serif;
+font-size:15.5px;line-height:1.6;-webkit-text-size-adjust:100%}
+.jp{font-family:"Noto Sans JP","Be Vietnam Pro",sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 36px}
+
+/* ---------- Header ---------- */
+header.hero{background:var(--navy);color:#fff;margin:0 -16px;padding:26px 20px 22px}
+@media (prefers-color-scheme: dark){ header.hero{background:#14283f}}
+.hero .org{font-size:13px;letter-spacing:.14em;font-weight:700;opacity:.85}
+.hero h1{margin:6px 0 2px;font-size:clamp(24px,5.6vw,34px);line-height:1.25;font-weight:800}
+.hero .h1jp{font-size:clamp(15px,3.6vw,19px);font-weight:500;opacity:.92}
+.hero p{margin:12px 0 0;font-size:14.5px;opacity:.94;max-width:640px}
+.hero .steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero .steps span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
+border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600}
+
+/* ---------- Progress ---------- */
+.progress-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+box-shadow:var(--shadow);padding:14px 16px;margin:18px 0 6px;position:sticky;top:10px;z-index:30}
+.progress-card .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.progress-card .lbl{font-weight:700;font-size:14px}
+.progress-card .pct{font-weight:800;color:var(--accent);font-size:18px}
+.bar{height:9px;background:var(--surface2);border-radius:99px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0%;background:var(--accent);border-radius:99px;transition:width .35s ease}
+.progress-card .hint{font-size:12.5px;color:var(--ink2);margin-top:6px}
+
+/* ---------- QR ---------- */
+.qr-wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.qr-box{background:#ffffff;border:1.5px solid var(--line);border-radius:12px;padding:10px;line-height:0;flex:0 0 auto}
+.qr-box svg{width:176px;height:176px;display:block}
+.qr-box .qr-fallback{line-height:1.5;font-size:13px;color:#4c5b6b;padding:12px;max-width:176px}
+.qr-info{flex:1;min-width:230px}
+.qr-url{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;word-break:break-all;
+background:var(--surface2);border-radius:8px;padding:9px 11px;margin:10px 0}
+
+/* ---------- Sections ---------- */
+section.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+box-shadow:var(--shadow);padding:20px 18px;margin-top:18px}
+section.card.important{border:2px solid var(--accent)}
+.sec-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px}
+.sec-num{flex:0 0 auto;width:38px;height:38px;border-radius:11px;background:var(--accent);
+color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:17px}
+.sec-head h2{margin:0;font-size:19px;line-height:1.35}
+.sec-head .h2jp{font-size:13.5px;color:var(--ink2);font-weight:500}
+.badge-important{display:inline-block;background:var(--warn);color:#fff;font-size:11.5px;font-weight:700;
+border-radius:99px;padding:2px 10px;margin-left:8px;vertical-align:2px;letter-spacing:.04em}
+.guide{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:14px;margin:10px 0 16px}
+.guide.gold{background:var(--gold-soft)}
+.guide b{font-weight:700}
+.guide ul{margin:6px 0 0;padding-left:19px}
+.guide li{margin:3px 0}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid .full{grid-column:1/-1}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.grid .half{grid-column:1/-1}}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+label .lb-vi{font-weight:600;font-size:14.5px}
+label .lb-jp{display:block;font-size:12px;color:var(--ink2);font-weight:500}
+.req{color:var(--warn);font-weight:800;margin-left:2px}
+input[type=text],input[type=date],input[type=month],input[type=tel],input[type=email],input[type=number],
+select,textarea{
+width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);
+color:var(--ink);font:inherit;font-size:15.5px;appearance:none}
+textarea{min-height:74px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+input.invalid,select.invalid,textarea.invalid{border-color:var(--warn);background:var(--warn-soft)}
+.note{font-size:12.5px;color:var(--ink2)}
+.err{font-size:12.5px;color:var(--warn);font-weight:600;display:none}
+.err.show{display:block}
+
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks label,.radio-pill{border:1.5px solid var(--line);border-radius:99px;padding:8px 14px;
+font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;background:var(--surface)}
+.checks input{accent-color:var(--accent);width:17px;height:17px}
+
+/* ---------- Work history stages ---------- */
+.stage{border:1.5px solid var(--line);border-radius:12px;padding:16px 14px;margin-bottom:14px;background:var(--surface)}
+.stage-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.stage-title{font-weight:800;font-size:15.5px}
+.stage-title .st-jp{font-weight:500;color:var(--ink2);font-size:12.5px;margin-left:6px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:700;cursor:pointer;font-size:15px}
+.btn-accent{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:var(--surface2);color:var(--ink);border:1.5px solid var(--line)}
+.btn-danger{background:transparent;color:var(--warn);border:1.5px solid var(--warn);padding:7px 13px;font-size:13.5px;border-radius:9px}
+.btn-add{width:100%;border:2px dashed var(--accent);color:var(--accent);background:var(--accent-soft);
+border-radius:12px;padding:14px;font:inherit;font-weight:700;font-size:15.5px;cursor:pointer}
+.timeline-note{background:var(--gold-soft);border-radius:10px;padding:11px 14px;font-size:13.5px;margin-top:4px}
+.now-check{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-top:8px}
+.now-check input{width:18px;height:18px;accent-color:var(--accent)}
+
+/* ---------- Kaiwa level picker ---------- */
+.split-note{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 16px}
+@media (max-width:600px){.split-note{grid-template-columns:1fr}}
+.split-note .box{border-radius:10px;padding:12px 14px;font-size:14px}
+.split-note .box.a{background:var(--surface2);border:1.5px solid var(--line)}
+.split-note .box.b{background:var(--accent-soft);border:1.5px solid var(--accent)}
+.split-note .box b{display:block;font-size:15px;margin-bottom:3px}
+.level-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.level-card{border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:var(--surface);text-align:left;font:inherit;color:var(--ink)}
+.level-card .lv{font-size:21px;font-weight:800}
+.level-card .lv-desc{font-size:12.5px;color:var(--ink2);line-height:1.5;margin-top:3px}
+.level-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.level-card.selected .lv{color:var(--accent)}
+
+/* ---------- Certificates ---------- */
+.quick-add{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.quick-add button{border:1.5px solid var(--accent);color:var(--accent);background:var(--surface);
+border-radius:99px;padding:7px 14px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+.cert{border:1.5px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.empty-note{border:1.5px dashed var(--line);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--ink2)}
+
+/* ---------- Uploads ---------- */
+.uploads{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:600px){.uploads{grid-template-columns:1fr}}
+.upbox{border:2px dashed var(--line);border-radius:12px;padding:14px;text-align:center;background:var(--surface)}
+.upbox .up-title{font-weight:700;font-size:14.5px}
+.upbox .up-jp{font-size:12px;color:var(--ink2)}
+.upbox img{max-width:100%;max-height:170px;border-radius:8px;margin-top:10px;display:none;margin-left:auto;margin-right:auto}
+.upbox .fname{font-size:12.5px;color:var(--ink2);margin-top:8px;word-break:break-all}
+.upbox label.pick{display:inline-block;margin-top:10px;background:var(--surface2);border:1.5px solid var(--line);
+border-radius:9px;padding:9px 16px;font-weight:700;font-size:14px;cursor:pointer}
+.upbox input[type=file]{display:none}
+
+/* ---------- Submit / result ---------- */
+.submit-zone{margin-top:22px;text-align:center}
+.submit-zone .big{font-size:17px;padding:16px 26px;width:100%;max-width:520px}
+#result{display:none;margin-top:20px}
+#result.show{display:block}
+.result-card{background:var(--ok-soft);border:2px solid var(--ok);border-radius:var(--radius);padding:20px 18px}
+.result-card h2{margin:0 0 6px;font-size:20px}
+.result-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+#summaryText{width:100%;min-height:300px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.65}
+.send-progress{background:var(--surface);border:2px solid var(--accent);border-radius:var(--radius);padding:20px 18px;text-align:center}
+.send-progress .spinner{width:34px;height:34px;border-radius:50%;border:4px solid var(--accent-soft);border-top-color:var(--accent);margin:0 auto 12px;animation:spin 0.9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.send-progress .spinner{animation:none}}
+.send-progress p{margin:0;font-weight:700}
+.send-success{background:var(--ok-soft);border:2px solid var(--ok);border-radius:var(--radius);padding:22px 18px;text-align:center}
+.send-success .big-check{width:52px;height:52px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:28px;font-weight:800;margin:0 auto 12px}
+.send-success h2{margin:0 0 8px;font-size:20px;line-height:1.4}
+.send-success p{margin:6px 0}
+.send-error{background:var(--warn-soft);border:2px solid var(--warn);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.send-error h2{margin:0 0 6px;font-size:18px;line-height:1.45}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
+padding:11px 20px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.stickybar{position:sticky;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);
+box-shadow:0 -4px 18px rgba(20,40,60,.10);
+padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;max-width:880px;margin:0 auto}
+.stickybar .mini{font-size:12.5px;color:var(--ink2);line-height:1.35;flex:1;min-width:0}
+.stickybar .mini b{color:var(--ink);font-size:13.5px}
+.stickybar .btn{white-space:nowrap}
+
+footer.foot{margin-top:26px;text-align:center;color:var(--ink2);font-size:13px}
+@media print{
+.progress-card,.stickybar,.submit-zone,.result-actions,.btn-add,.btn-danger,.quick-add{display:none!important}
+body{background:#fff} section.card{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+<div class="org">JTS株式会社 ・ JTS CO., LTD.</div>
+<h1>Form thông tin ứng viên</h1>
+<div class="h1jp jp">候補者情報入力フォーム</div>
+<p>Điền đầy đủ thông tin bên dưới để JTS hoàn thiện hồ sơ (履歴書) giới thiệu việc làm cho bạn. Thông tin càng chi tiết, hồ sơ càng chính xác.<br>
+<span class="jp">下記の項目を入力してください。JTSが履歴書を作成し、お仕事をご紹介します。詳しく書くほど、正確な履歴書になります。</span></p>
+<div class="steps">
+<span>① Điền thông tin ・ 入力</span>
+<span>② Tải ảnh giấy tờ ・ 書類の写真</span>
+<span>③ Bấm gửi hồ sơ ・ 送信</span>
+</div>
+</header>
+
+<section class="card" id="qrCard" style="margin-top:18px">
+<div class="sec-head"><div class="sec-num" style="font-size:14px">QR</div>
+<div><h2>Mã QR mở form này — gửi cho ứng viên</h2><div class="h2jp jp">候補者送付用QRコード</div></div>
+</div>
+<div class="qr-wrap">
+<div class="qr-box" id="qrBox" aria-label="Mã QR mở form thông tin ứng viên"></div>
+<div class="qr-info">
+<p style="margin:0">Gửi ảnh mã QR này cho ứng viên (qua LINE / Zalo / Email). Ứng viên chỉ cần <b>mở camera điện thoại quét mã</b> là form này hiện ra để điền.<br>
+<span class="jp">このQRコードの画像を候補者に送ってください。スマホのカメラで読み取ると、このフォームが開きます。</span></p>
+<div class="qr-url" id="qrUrl"></div>
+<button type="button" class="btn btn-accent" id="btnQrPng">Tải ảnh mã QR (.png) ・ QR画像を保存</button>
+<p class="note" style="margin-top:8px">Bạn cũng có thể in mã QR này ra giấy để ứng viên quét trực tiếp. ・ <span class="jp">印刷して直接読み取ってもらうこともできます。</span></p>
+</div>
+</div>
+</section>
+
+<div class="progress-card" aria-live="polite">
+<div class="row"><span class="lbl">Mức độ hoàn thành ・ 入力の進み具合</span><span class="pct" id="pct">0%</span></div>
+<div class="bar"><i id="barFill"></i></div>
+<div class="hint">Mục có dấu <span style="color:var(--warn);font-weight:800">*</span> là bắt buộc. ・ <span class="jp">＊は必須項目です。</span></div>
+</div>
+
+<form id="candForm" novalidate>
+
+<!-- ========== 1. PERSONAL ========== -->
+<section class="card" id="s1">
+<div class="sec-head"><div class="sec-num">1</div>
+<div><h2>Thông tin cá nhân</h2><div class="h2jp jp">個人情報</div></div>
+</div>
+<div class="grid">
+<div class="field">
+<label><span class="lb-vi">Họ tên (chữ Romaji, như trên thẻ lưu trú)<span class="req">*</span></span><span class="lb-jp jp">氏名（ローマ字・在留カード通り）</span></label>
+<input type="text" id="f_name" placeholder="Ví dụ: NGUYEN VAN A" autocomplete="name">
+<span class="err" data-err="f_name">Vui lòng nhập họ tên ・ 氏名を入力してください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Tên Katakana<span class="req">*</span></span><span class="lb-jp jp">フリガナ（カタカナ）</span></label>
+<input type="text" id="f_kana" placeholder="Ví dụ: グエン・ヴァン・アー">
+<span class="err" data-err="f_kana">Vui lòng nhập tên Katakana ・ フリガナを入力してください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Ngày sinh<span class="req">*</span></span><span class="lb-jp jp">生年月日</span></label>
+<input type="date" id="f_dob">
+<span class="note" id="ageNote"></span>
+<span class="err" data-err="f_dob">Vui lòng chọn ngày sinh ・ 生年月日を選んでください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Giới tính<span class="req">*</span></span><span class="lb-jp jp">性別</span></label>
+<select id="f_gender">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Nam ・ 男性</option><option>Nữ ・ 女性</option>
+</select>
+<span class="err" data-err="f_gender">Vui lòng chọn giới tính ・ 性別を選んでください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Quốc tịch</span><span class="lb-jp jp">国籍</span></label>
+<input type="text" id="f_nation" value="Việt Nam ・ ベトナム">
+</div>
+<div class="field">
+<label><span class="lb-vi">Tình trạng hôn nhân</span><span class="lb-jp jp">配偶者</span></label>
+<select id="f_marital">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Chưa kết hôn ・ 未婚</option><option>Đã kết hôn ・ 既婚</option>
+</select>
+</div>
+<div class="field">
+<label><span class="lb-vi">Chiều cao (cm)</span><span class="lb-jp jp">身長</span></label>
+<input type="number" id="f_height" inputmode="numeric" placeholder="170">
+</div>
+<div class="field">
+<label><span class="lb-vi">Cân nặng (kg)</span><span class="lb-jp jp">体重</span></label>
+<input type="number" id="f_weight" inputmode="numeric" placeholder="65">
+</div>
+<div class="field">
+<label><span class="lb-vi">Size quần áo / Size giày</span><span class="lb-jp jp">服のサイズ ／ 靴のサイズ</span></label>
+<input type="text" id="f_sizes" placeholder="Ví dụ: M / 25.5cm">
+</div>
+<div class="field">
+<label><span class="lb-vi">Số điện thoại tại Nhật<span class="req">*</span></span><span class="lb-jp jp">電話番号</span></label>
+<input type="tel" id="f_phone" placeholder="090-0000-0000" autocomplete="tel">
+<span class="err" data-err="f_phone">Vui lòng nhập số điện thoại ・ 電話番号を入力してください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Email / LINE ID</span><span class="lb-jp jp">メール ／ LINE ID</span></label>
+<input type="text" id="f_contact2" placeholder="Email hoặc ID LINE của bạn">
+</div>
+</div>
+</section>
+
+<!-- ========== 2. ADDRESS & VISA ========== -->
+<section class="card" id="s2">
+<div class="sec-head"><div class="sec-num">2</div>
+<div><h2>Địa chỉ hiện tại &amp; tư cách lưu trú</h2><div class="h2jp jp">現住所・在留資格</div></div>
+</div>
+<div class="grid">
+<div class="field">
+<label><span class="lb-vi">Mã bưu điện</span><span class="lb-jp jp">郵便番号</span></label>
+<input type="text" id="f_zip" inputmode="numeric" placeholder="〒100-0001">
+</div>
+<div class="field">
+<label><span class="lb-vi">Ga gần nhất</span><span class="lb-jp jp">最寄り駅</span></label>
+<input type="text" id="f_station" placeholder="Ví dụ: 池袋駅">
+</div>
+<div class="field full">
+<label><span class="lb-vi">Địa chỉ hiện tại (ghi bằng tiếng Nhật, như trên thẻ lưu trú)<span class="req">*</span></span><span class="lb-jp jp">現住所（在留カード通り・日本語で）</span></label>
+<input type="text" id="f_address" placeholder="Ví dụ: 東京都豊島区東池袋1丁目1-1 ○○マンション101号">
+<span class="err" data-err="f_address">Vui lòng nhập địa chỉ ・ 現住所を入力してください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Tư cách lưu trú hiện tại<span class="req">*</span></span><span class="lb-jp jp">現在の在留資格</span></label>
+<select id="f_visa">
+<option value="">— Chọn ・ 選択 —</option>
+<option>特定技能1号 (Tokuteigino 1)</option>
+<option>特定技能2号 (Tokuteigino 2)</option>
+<option>技能実習 (Thực tập sinh)</option>
+<option>特定活動 (Katsudo)</option>
+<option>留学 (Du học sinh)</option>
+<option>家族滞在 (Visa gia đình)</option>
+<option>技術・人文知識・国際業務 (Kỹ sư / nhân văn)</option>
+<option>永住者・定住者 (Vĩnh trú / định trú)</option>
+<option value="other">Khác ・ その他</option>
+</select>
+<span class="err" data-err="f_visa">Vui lòng chọn tư cách lưu trú ・ 在留資格を選んでください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Ngày hết hạn visa<span class="req">*</span></span><span class="lb-jp jp">在留期間満了日</span></label>
+<input type="date" id="f_visaExp">
+<span class="err" data-err="f_visaExp">Vui lòng chọn ngày hết hạn ・ 満了日を選んでください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Ngày đầu tiên đến Nhật<span class="req">*</span></span><span class="lb-jp jp">初来日（初めて日本に来た日）</span></label>
+<input type="date" id="f_arrival">
+<span class="note">Ngày này là mốc bắt đầu của phần kinh nghiệm làm việc ở mục 3. ・ <span class="jp">3番の職歴はこの日から書きます。</span></span>
+<span class="err" data-err="f_arrival">Vui lòng chọn ngày đến Nhật ・ 来日日を選んでください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Nếu chọn "Khác", ghi rõ tư cách lưu trú</span><span class="lb-jp jp">「その他」の場合は在留資格を記入</span></label>
+<input type="text" id="f_visaOther" placeholder="">
+</div>
+</div>
+</section>
+
+<!-- ========== 3. WORK HISTORY (IMPORTANT) ========== -->
+<section class="card important" id="s3">
+<div class="sec-head"><div class="sec-num">3</div>
+<div><h2>Kinh nghiệm làm việc tại Nhật — theo từng giai đoạn<span class="badge-important">QUAN TRỌNG ・ 重要</span></h2>
+<div class="h2jp jp">日本での職歴（来日から現在まで・期間ごとに詳しく）</div></div>
+</div>
+
+<div class="guide">
+<b>Cách điền — hãy đọc kỹ:</b> ・ <span class="jp"><b>書き方（必ず読んでください）</b></span>
+<ul>
+<li>Ghi <b>theo thứ tự thời gian, từ giai đoạn ĐẦU TIÊN khi bạn mới đến Nhật cho đến HIỆN TẠI</b> — không bỏ trống giai đoạn nào. <span class="jp">来日した最初の期間から現在まで、順番に・空白の期間がないように書いてください。</span></li>
+<li><b>Mỗi lần đổi công ty, đổi visa hoặc đổi nội dung công việc = một giai đoạn riêng.</b> Bấm nút “＋ Thêm giai đoạn” để thêm. <span class="jp">会社・在留資格・仕事内容が変わるごとに分けて書いてください。</span></li>
+<li>Mỗi giai đoạn gồm 4 thông tin: <b>(1) Thời gian</b> từ tháng/năm đến tháng/năm, <b>(2) Tên công ty</b>, <b>(3) Tư cách lưu trú lúc đó</b>, <b>(4) Nội dung công việc cụ thể</b>. <span class="jp">各期間に「期間・会社名・その時の在留資格・具体的な仕事内容」を書いてください。</span></li>
+<li>Phần “Nội dung công việc” hãy viết <b>cụ thể việc bạn đã làm</b> (làm gì, bằng máy móc / dụng cụ gì, sản phẩm gì), không viết chung chung như “làm ở xưởng”. <span class="jp">仕事内容は「何を・どうやって」まで具体的に書いてください。</span></li>
+<li>Thời gian học tiếng / chờ việc / làm baito (nếu có) cũng ghi thành một giai đoạn, ghi rõ ở phần nội dung công việc. <span class="jp">学校・待機期間・アルバイトも1つの期間として書いてください。</span></li>
+</ul>
+</div>
+
+<div id="stages"></div>
+
+<button type="button" class="btn-add" id="addStage">＋ Thêm giai đoạn làm việc ・ 期間を追加する</button>
+
+<div class="timeline-note" id="timelineNote">
+Mốc bắt đầu: ngày bạn đến Nhật (mục 2). Hãy đảm bảo giai đoạn đầu tiên bắt đầu từ khoảng thời gian đó và giai đoạn cuối cùng kéo dài đến hiện tại.
+<span class="jp">最初の期間は来日直後から、最後の期間は現在まで続くようにしてください。</span>
+</div>
+
+<div class="field" style="margin-top:16px">
+<label><span class="lb-vi">Kinh nghiệm làm việc tại Việt Nam (nếu có, ghi ngắn gọn)</span><span class="lb-jp jp">ベトナムでの職歴（あれば簡単に）</span></label>
+<textarea id="f_workVN" placeholder="Ví dụ: 2019–2021: Công nhân may tại công ty … ở Hải Dương, may áo sơ mi xuất khẩu."></textarea>
+</div>
+</section>
+
+<!-- ========== 4. JAPANESE: CERT vs KAIWA ========== -->
+<section class="card important" id="s4">
+<div class="sec-head"><div class="sec-num">4</div>
+<div><h2>Trình độ tiếng Nhật: chứng chỉ &amp; giao tiếp</h2>
+<div class="h2jp jp">日本語能力：資格と会話力は別々に答えてください</div></div>
+</div>
+
+<div class="split-note">
+<div class="box a"><b>A. Chứng chỉ đã ĐỖ ・ 合格した資格</b>
+Đây là bằng cấp bạn đã thi và đỗ thật (JLPT, JFT-Basic…). Nếu chưa đỗ chứng chỉ nào, chọn “Chưa có”.
+<span class="jp">実際に合格した試験だけを書いてください。</span></div>
+<div class="box b"><b>B. Khả năng GIAO TIẾP thực tế ・ 実際の会話力</b>
+Đây là khả năng nói – nghe của bạn khi giao tiếp hằng ngày, <b>không cần có bằng</b>. Hãy tự đánh giá trung thực: giao tiếp của bạn <b>tương đương trình độ N mấy</b>?
+<span class="jp">資格がなくても大丈夫です。自分の会話力がN何レベル相当か、正直に選んでください。</span></div>
+</div>
+
+<h3 style="margin:14px 0 8px;font-size:16px">A. Chứng chỉ tiếng Nhật đã đỗ ・ <span class="jp">合格した日本語の資格</span></h3>
+<div class="grid">
+<div class="field">
+<label><span class="lb-vi">JLPT (cấp cao nhất đã đỗ)<span class="req">*</span></span><span class="lb-jp jp">JLPT（合格した一番上のレベル）</span></label>
+<select id="f_jlpt">
+<option value="">— Chọn ・ 選択 —</option>
+<option>N1</option><option>N2</option><option>N3</option><option>N4</option><option>N5</option>
+<option>Chưa có ・ なし</option>
+</select>
+<span class="err" data-err="f_jlpt">Vui lòng chọn ・ 選んでください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Chứng chỉ khác (JFT-Basic, NAT-TEST…)</span><span class="lb-jp jp">その他の試験（JFT-Basic等）</span></label>
+<input type="text" id="f_jpOther" placeholder="Ví dụ: JFT-Basic A2, đỗ 03/2025">
+</div>
+</div>
+
+<h3 style="margin:22px 0 4px;font-size:16px">B. Khả năng giao tiếp (kaiwa) ・ <span class="jp">会話力（自己評価）</span><span class="req">*</span></h3>
+<p class="note" style="margin:0 0 12px">Chọn 1 mức gần nhất với khả năng nói chuyện thực tế của bạn. Chọn đúng mức thật của mình — công ty sẽ kiểm tra khi phỏng vấn. ・ <span class="jp">面接で確認されますので、実際のレベルを選んでください。</span></p>
+<div class="level-grid" id="kaiwaGrid" role="radiogroup" aria-label="Mức giao tiếp tương đương">
+<button type="button" class="level-card" data-level="Tương đương N5"><span class="lv">≈ N5</span><div class="lv-desc">Chào hỏi, giới thiệu bản thân, câu rất ngắn. <span class="jp">あいさつ・自己紹介程度</span></div></button>
+<button type="button" class="level-card" data-level="Tương đương N4"><span class="lv">≈ N4</span><div class="lv-desc">Giao tiếp sinh hoạt đơn giản, câu ngắn quen thuộc. <span class="jp">簡単な日常会話ができる</span></div></button>
+<button type="button" class="level-card" data-level="Tương đương N3"><span class="lv">≈ N3</span><div class="lv-desc">Nói chuyện hằng ngày khá trôi chảy, hiểu chỉ thị cơ bản trong công việc. <span class="jp">日常会話はだいたいできる</span></div></button>
+<button type="button" class="level-card" data-level="Tương đương N2"><span class="lv">≈ N2</span><div class="lv-desc">Giao tiếp trong công việc tốt, hiểu giải thích chi tiết, trình bày được ý kiến. <span class="jp">仕事の会話・説明が理解できる</span></div></button>
+<button type="button" class="level-card" data-level="Tương đương N1"><span class="lv">≈ N1</span><div class="lv-desc">Giao tiếp lưu loát gần như người Nhật, xử lý được tình huống phức tạp. <span class="jp">ほぼ日本人と同じように話せる</span></div></button>
+<button type="button" class="level-card" data-level="Dưới N5"><span class="lv">&lt; N5</span><div class="lv-desc">Mới bắt đầu học, chỉ biết vài từ đơn lẻ. <span class="jp">単語程度・勉強中</span></div></button>
+</div>
+<span class="err" id="kaiwaErr">Vui lòng chọn mức giao tiếp ・ 会話レベルを選んでください</span>
+
+<div class="grid" style="margin-top:14px">
+<div class="field">
+<label><span class="lb-vi">Tự giới thiệu &amp; trả lời phỏng vấn bằng tiếng Nhật được không?</span><span class="lb-jp jp">面接で自己紹介・質問に答えられますか</span></label>
+<select id="f_interviewJp">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Tự trả lời được, không cần hỗ trợ ・ 一人で答えられる</option>
+<option>Trả lời được câu đơn giản ・ 簡単な質問なら答えられる</option>
+<option>Cần người hỗ trợ phiên dịch ・ 通訳のサポートが必要</option>
+</select>
+</div>
+<div class="field">
+<label><span class="lb-vi">Khả năng đọc – viết (Kanji)</span><span class="lb-jp jp">読み書き（漢字）</span></label>
+<select id="f_kanji">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Đọc được tài liệu công việc ・ 仕事の書類が読める</option>
+<option>Đọc được Kanji thường dùng hằng ngày ・ 日常の漢字が読める</option>
+<option>Đọc được Hiragana / Katakana ・ ひらがな・カタカナのみ</option>
+<option>Gần như không đọc được ・ ほとんど読めない</option>
+</select>
+</div>
+</div>
+</section>
+
+<!-- ========== 5. CERTIFICATES ========== -->
+<section class="card" id="s5">
+<div class="sec-head"><div class="sec-num">5</div>
+<div><h2>Các chứng chỉ đã có</h2><div class="h2jp jp">持っている資格・合格証（あれば全部）</div></div>
+</div>
+<div class="guide">
+Liệt kê <b>tất cả</b> chứng chỉ bạn đã đỗ / được cấp: chứng chỉ <b>Tokuteigino</b> (theo ngành), chứng chỉ <b>kỹ năng nghề</b> (技能検定 3級…), <b>JLPT / JFT</b>, bằng lái xe, chứng chỉ khác… Mỗi chứng chỉ 1 dòng: <b>tên chứng chỉ + ngày đỗ / ngày cấp</b>.
+<span class="jp">特定技能の合格証、技能検定、JLPT、運転免許など、持っている資格をすべて書いてください（資格名と合格日）。</span>
+</div>
+<div class="quick-add">
+<button type="button" data-quick="tokutei">＋ Chứng chỉ Tokuteigino ・ 特定技能</button>
+<button type="button" data-quick="skill">＋ Kỹ năng nghề ・ 技能検定</button>
+<button type="button" data-quick="jlpt">＋ JLPT / JFT</button>
+<button type="button" data-quick="drive">＋ Bằng lái xe ・ 運転免許</button>
+<button type="button" data-quick="other">＋ Chứng chỉ khác ・ その他</button>
+</div>
+<div id="certs"></div>
+<div class="empty-note" id="certEmpty">Chưa có chứng chỉ nào — nếu đúng là bạn không có chứng chỉ, hãy tick ô bên dưới. ・ <span class="jp">資格がない場合は下にチェックしてください。</span>
+<label class="now-check"><input type="checkbox" id="f_noCert"> Tôi không có chứng chỉ nào ・ <span class="jp">資格は持っていません</span></label>
+</div>
+</section>
+
+<!-- ========== 6. EDUCATION ========== -->
+<section class="card" id="s6">
+<div class="sec-head"><div class="sec-num">6</div>
+<div><h2>Học vấn</h2><div class="h2jp jp">学歴</div></div>
+</div>
+<div class="grid">
+<div class="field">
+<label><span class="lb-vi">Trường học cuối cùng (tên trường)<span class="req">*</span></span><span class="lb-jp jp">最終学歴（学校名）</span></label>
+<input type="text" id="f_school" placeholder="Ví dụ: Trường Cao đẳng Cơ khí …">
+<span class="err" data-err="f_school">Vui lòng nhập tên trường ・ 学校名を入力してください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Ngành học / chuyên môn</span><span class="lb-jp jp">専攻</span></label>
+<input type="text" id="f_major" placeholder="Ví dụ: Cơ khí chế tạo">
+</div>
+<div class="field">
+<label><span class="lb-vi">Thời gian học (từ năm – đến năm)</span><span class="lb-jp jp">在学期間</span></label>
+<input type="text" id="f_schoolYears" placeholder="Ví dụ: 2019 – 2022">
+</div>
+<div class="field">
+<label><span class="lb-vi">Trình độ</span><span class="lb-jp jp">学歴区分</span></label>
+<select id="f_eduLevel">
+<option value="">— Chọn ・ 選択 —</option>
+<option>THPT ・ 高校</option><option>Trung cấp ・ 専門学校（中級）</option>
+<option>Cao đẳng ・ 短大・高専</option><option>Đại học ・ 大学</option>
+<option>Trường tiếng Nhật ・ 日本語学校</option><option>Khác ・ その他</option>
+</select>
+</div>
+</div>
+</section>
+
+<!-- ========== 7. FAMILY & HOUSING ========== -->
+<section class="card" id="s7">
+<div class="sec-head"><div class="sec-num">7</div>
+<div><h2>Gia đình &amp; nhà ở hiện tại</h2><div class="h2jp jp">家族構成・住居</div></div>
+</div>
+<div id="family"></div>
+<button type="button" class="btn-add" id="addFamily">＋ Thêm thành viên gia đình ・ 家族を追加する</button>
+<div class="grid" style="margin-top:16px">
+<div class="field">
+<label><span class="lb-vi">Loại nhà ở hiện tại</span><span class="lb-jp jp">現在の住居</span></label>
+<select id="f_housing">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Thuê nhà riêng ・ 賃貸（個人）</option>
+<option>Ký túc xá công ty ・ 会社寮</option>
+<option>Ở ghép ・ シェアハウス</option>
+<option>Ở cùng gia đình / người thân ・ 家族と同居</option>
+</select>
+</div>
+<div class="field">
+<label><span class="lb-vi">Đang sống cùng ai? (mấy người / phòng)</span><span class="lb-jp jp">同居人数</span></label>
+<input type="text" id="f_roommates" placeholder="Ví dụ: Sống một mình, 1 người/phòng">
+</div>
+<div class="field">
+<label><span class="lb-vi">Phương tiện đi làm thường dùng</span><span class="lb-jp jp">通勤手段</span></label>
+<select id="f_commute">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Tàu điện ・ 電車</option><option>Xe đạp ・ 自転車</option>
+<option>Xe máy ・ バイク</option><option>Ô tô ・ 車</option>
+<option>Đi bộ ・ 徒歩</option><option>Xe đưa đón của công ty ・ 送迎バス</option>
+</select>
+</div>
+<div class="field">
+<label><span class="lb-vi">Bằng lái xe tại Nhật</span><span class="lb-jp jp">日本の運転免許</span></label>
+<select id="f_license">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Không có ・ なし</option>
+<option>Có – ô tô (AT) ・ 普通自動車AT</option>
+<option>Có – ô tô (MT) ・ 普通自動車MT</option>
+<option>Có – xe máy ・ 二輪</option>
+</select>
+</div>
+</div>
+</section>
+
+<!-- ========== 8. WISHES ========== -->
+<section class="card" id="s8">
+<div class="sec-head"><div class="sec-num">8</div>
+<div><h2>Nguyện vọng</h2><div class="h2jp jp">希望条件</div></div>
+</div>
+<div class="grid">
+<div class="field">
+<label><span class="lb-vi">Ngành nghề / công việc mong muốn<span class="req">*</span></span><span class="lb-jp jp">希望する仕事・分野</span></label>
+<input type="text" id="f_wishJob" placeholder="Ví dụ: 外食 (nhà hàng), ビルクリーニング (dọn dẹp tòa nhà)…">
+<span class="err" data-err="f_wishJob">Vui lòng nhập công việc mong muốn ・ 希望職種を入力してください</span>
+</div>
+<div class="field">
+<label><span class="lb-vi">Nơi làm việc mong muốn</span><span class="lb-jp jp">希望勤務地</span></label>
+<input type="text" id="f_wishPlace" placeholder="Ví dụ: Kanto, Kansai, ở đâu cũng được…">
+</div>
+<div class="field">
+<label><span class="lb-vi">Mức lương mong muốn (yên / tháng)</span><span class="lb-jp jp">希望給与（月給）</span></label>
+<input type="text" id="f_wishSalary" placeholder="Ví dụ: 22万円以上">
+</div>
+<div class="field">
+<label><span class="lb-vi">Ngày có thể bắt đầu làm việc tại công ty<span class="req">*</span></span><span class="lb-jp jp">入社可能日（会社で働き始められる日）</span></label>
+<input type="date" id="f_startWhen">
+<label class="now-check"><input type="checkbox" id="f_startNow"> Có thể bắt đầu ngay ・ <span class="jp">すぐ入社できます</span></label>
+<span class="note">Chọn ngày cụ thể bạn có thể vào công ty làm việc, hoặc tick “Có thể bắt đầu ngay” nếu đi làm được liền. ・ <span class="jp">入社できる日を選ぶか、「すぐ入社可」にチェックしてください。</span></span>
+<span class="err" data-err="f_startWhen">Vui lòng chọn ngày bắt đầu hoặc tick “bắt đầu ngay” ・ 入社可能日を選ぶか「すぐ入社可」にチェックしてください</span>
+</div>
+<div class="field full">
+<label><span class="lb-vi">Thời gian có thể phỏng vấn (ngày + giờ cụ thể, ghi 2–3 khung giờ)</span><span class="lb-jp jp">面接可能な日時（2〜3つ）</span></label>
+<textarea id="f_interviewWhen" placeholder="Ví dụ: Thứ 7 tuần này sau 18:00; Chủ nhật cả ngày; các ngày thường sau 19:00. Phỏng vấn online được."></textarea>
+</div>
+<div class="field">
+<label><span class="lb-vi">Có nguyện vọng lấy Nenkin (hoàn thuế hưu trí) không?</span><span class="lb-jp jp">脱退一時金（年金）の希望</span></label>
+<select id="f_nenkin">
+<option value="">— Chọn ・ 選択 —</option>
+<option>Có, chưa làm thủ tục ・ 希望する（手続き未実施）</option>
+<option>Có, đang làm thủ tục ・ 手続き中</option>
+<option>Đã nhận rồi ・ 受給済み</option>
+<option>Không có nguyện vọng ・ 希望しない</option>
+<option>Chưa biết, cần tư vấn ・ 相談したい</option>
+</select>
+</div>
+<div class="field">
+<label><span class="lb-vi">Lý do chuyển việc / ghi chú thêm</span><span class="lb-jp jp">転職理由・備考</span></label>
+<textarea id="f_remarks" placeholder="Điều bạn muốn JTS biết thêm: sức khỏe, hình xăm, ca đêm được không, dị ứng…"></textarea>
+</div>
+</div>
+</section>
+
+<!-- ========== 9. UPLOADS ========== -->
+<section class="card" id="s9">
+<div class="sec-head"><div class="sec-num">9</div>
+<div><h2>Ảnh chân dung &amp; ảnh giấy tờ</h2><div class="h2jp jp">証明写真・書類の写真</div></div>
+</div>
+<div class="guide gold">
+Chụp ảnh <b>rõ nét, không bị lóa, đủ 4 góc</b>. Ảnh chân dung: nền trắng hoặc xanh, mặc áo có cổ, không đội mũ / đeo kính.
+<span class="jp">はっきり写るように撮影してください。証明写真は白または青背景・襟付きの服でお願いします。</span><br>
+<span class="note">Các ảnh đã chọn ở đây sẽ được gửi thẳng tới JTS cùng với hồ sơ khi bạn bấm nút “Gửi hồ sơ cho JTS” ở cuối form — không cần gửi riêng qua LINE / Email. ・ <span class="jp">ここで選んだ写真は、フォーム最後の「JTSへ送信」ボタンを押すと内容と一緒にJTSへ直接送信されます。</span></span>
+</div>
+<div class="uploads">
+<div class="upbox">
+<div class="up-title">Ảnh chân dung 3×4 <span style="color:var(--warn)">*</span></div><div class="up-jp jp">証明写真（3×4）</div>
+<img class="preview" alt="Xem trước ảnh chân dung">
+<div class="fname"></div>
+<label class="pick">Chọn ảnh ・ 写真を選ぶ<input type="file" accept="image/*" class="upfile" data-label="Ảnh chân dung 3×4"></label>
+</div>
+<div class="upbox">
+<div class="up-title">Thẻ lưu trú — mặt trước <span style="color:var(--warn)">*</span></div><div class="up-jp jp">在留カード（表面）</div>
+<img class="preview" alt="Xem trước thẻ lưu trú mặt trước">
+<div class="fname"></div>
+<label class="pick">Chọn ảnh ・ 写真を選ぶ<input type="file" accept="image/*" class="upfile" data-label="Thẻ lưu trú mặt trước"></label>
+</div>
+<div class="upbox">
+<div class="up-title">Thẻ lưu trú — mặt sau</div><div class="up-jp jp">在留カード（裏面）</div>
+<img class="preview" alt="Xem trước thẻ lưu trú mặt sau">
+<div class="fname"></div>
+<label class="pick">Chọn ảnh ・ 写真を選ぶ<input type="file" accept="image/*" class="upfile" data-label="Thẻ lưu trú mặt sau"></label>
+</div>
+<div class="upbox">
+<div class="up-title">Ảnh các chứng chỉ</div><div class="up-jp jp">資格証の写真（複数可）</div>
+<img class="preview" alt="Xem trước ảnh chứng chỉ">
+<div class="fname"></div>
+<label class="pick">Chọn ảnh ・ 写真を選ぶ<input type="file" accept="image/*" multiple class="upfile" data-label="Ảnh chứng chỉ"></label>
+</div>
+</div>
+</section>
+
+<div class="submit-zone">
+<button type="submit" class="btn btn-accent big" id="mainSubmitBtn">Gửi hồ sơ cho JTS ・ JTSへ送信</button>
+<p class="note" style="margin-top:10px">Bấm nút này, toàn bộ thông tin và các ảnh đã chọn ở mục 9 sẽ được gửi thẳng tới JTS. Bạn không cần tài khoản Google, không cần mở LINE / Email. ・ <span class="jp">入力内容と9番で選んだ写真がJTSへ直接送信されます。GoogleアカウントやLINE・メールは不要です。</span></p>
+</div>
+</form>
+
+<!-- ========== RESULT ========== -->
+<div id="result">
+<div class="send-progress" id="sendProgress" style="display:none">
+<div class="spinner" aria-hidden="true"></div>
+<p>Đang gửi... ・ <span class="jp">送信中...</span></p>
+<p class="note" style="margin-top:6px">Đang gửi hồ sơ và ảnh tới JTS, vui lòng không đóng trang. ・ <span class="jp">送信中です。このページを閉じないでください。</span></p>
+</div>
+<div class="send-success" id="sendSuccess" style="display:none">
+<div class="big-check" aria-hidden="true">✓</div>
+<h2>Đã gửi hồ sơ thành công! JTS sẽ liên hệ với bạn. ・ <span class="jp">送信が完了しました。JTSよりご連絡いたします。</span></h2>
+<p>Hồ sơ và các ảnh bạn đã chọn đã về tới JTS. Bạn có thể đóng trang này. ・ <span class="jp">入力内容と写真がJTSに届きました。このページを閉じていただいて大丈夫です。</span></p>
+</div>
+<div id="fallbackArea" style="display:none">
+<div class="send-error" id="sendError">
+<h2>Gửi trực tiếp không thành công — hãy thử cách khác ・ <span class="jp">直接送信できませんでした。別の方法をお試しください</span></h2>
+<p style="margin:0">Kết nối mạng có thể đang chập chờn. Hãy gửi hồ sơ cho JTS theo cách dự phòng bên dưới: <b>① Bấm “Sao chép hồ sơ”</b> → <b>② bấm “Mở LINE gửi cho JTS”</b> hoặc “Gửi qua Email” → <b>③ dán (Paste) nội dung vào và bấm gửi</b>. Đừng quên gửi kèm các ảnh đã chọn ở mục 9 (ảnh chân dung, thẻ lưu trú, chứng chỉ) qua LINE / Email.<br>
+<span class="jp">送り方： ①「コピーする」を押す → ②「LINEで送る」または「メールで送る」を押す → ③貼り付けて送信してください。9番で選んだ写真も一緒に送ってください。</span></p>
+</div>
+<div class="result-card">
+<h2>Cách gửi dự phòng ・ <span class="jp">別の送信方法</span></h2>
+<div class="result-actions">
+<button type="button" class="btn btn-accent" id="btnCopy">① Sao chép hồ sơ ・ コピーする</button>
+<a class="btn btn-ghost" id="btnLine" href="#" target="_blank" rel="noopener" style="text-decoration:none;display:inline-block">② Mở LINE gửi cho JTS ・ LINEで送る</a>
+<a class="btn btn-ghost" id="btnMail" href="#" style="text-decoration:none;display:inline-block">② Gửi qua Email ・ メールで送る</a>
+<button type="button" class="btn btn-ghost" id="btnShare">Chia sẻ qua ứng dụng khác ・ その他の共有</button>
+<button type="button" class="btn btn-ghost" id="btnDownload">Tải file hồ sơ (.txt)</button>
+</div>
+<p id="sendHint" style="background:var(--surface);border:1.5px solid var(--ok);border-radius:10px;padding:10px 12px;font-size:13.5px;margin:0 0 14px">Nếu bấm nút mà ứng dụng không mở ra: hãy bấm <b>“① Sao chép hồ sơ”</b>, tự mở <b>LINE</b> (đoạn chat với JTS) hoặc <b>Email</b> (tới p.tran@jts-jobs.com), chạm giữ và chọn <b>dán (Paste)</b> vào nội dung rồi bấm gửi — kèm ảnh ở mục 9. ・ <span class="jp">開かない場合はコピーして、LINEやメールに貼り付けて送ってください。</span></p>
+<label style="font-weight:700;font-size:14px">Nội dung hồ sơ ・ <span class="jp">送信データ</span></label>
+<textarea id="summaryText" readonly></textarea>
+<p class="note">Người nhận tại JTS: PHAM QUANG TRAN — Email: p.tran@jts-jobs.com ・ TEL: 080-4417-5688</p>
+</div>
+</div>
+</div>
+
+<footer class="foot">
+JTS株式会社 ・ 〒130-0026 東京都墨田区両国2-20-12-214 ・ TEL: 03-6685-8948<br>
+Thông tin bạn điền chỉ dùng để JTS làm hồ sơ giới thiệu việc làm. ・ <span class="jp">入力情報はお仕事紹介のための履歴書作成にのみ使用します。</span>
+</footer>
+</div>
+
+<div class="stickybar">
+<div class="mini"><b id="stickyPct">0% đã điền</b> — <span id="stickyHint">Đang chờ nhập thông tin…</span></div>
+<button type="button" class="btn btn-accent" id="stickySubmit">Gửi hồ sơ cho JTS ・ JTSへ送信</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(function(){
+"use strict";
+var $ = function(id){ return document.getElementById(id);};
+var $$ = function(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel));};
+var requiredIds = ["f_name","f_kana","f_dob","f_gender","f_phone","f_address","f_visa","f_visaExp","f_arrival","f_jlpt","f_school","f_wishJob","f_startWhen"];
+var kaiwaLevel = "";
+
+/* ---------- Age ---------- */
+var dob = $("f_dob");
+dob.addEventListener("change", function(){
+if(!dob.value){ $("ageNote").textContent=""; return;}
+var d = new Date(dob.value), now = new Date(), age = now.getFullYear()-d.getFullYear();
+var m = now.getMonth()-d.getMonth();
+if(m<0 || (m===0 && now.getDate()<d.getDate())) age--;
+$("ageNote").textContent = "Tuổi hiện tại: " + age + " tuổi ・ 現在 " + age + "歳";
+});
+
+/* ---------- Work stages ---------- */
+var stageCount = 0;
+var VISA_OPTIONS = ["技能実習 (TTS)","特定活動 (Katsudo)","特定技能1号 (Tokuteigino 1)","特定技能2号 (Tokuteigino 2)","留学 (Du học)","家族滞在 (Gia đình)","技術・人文知識・国際業務 (Kỹ sư)","アルバイト (Baito / làm thêm)","日本語学校・待機 (Học tiếng / chờ việc)","その他 (Khác)"];
+function addStage(){
+stageCount++;
+var wrap = document.createElement("div");
+wrap.className = "stage";
+var opts = VISA_OPTIONS.map(function(v){ return '<option>'+v+'</option>';}).join("");
+wrap.innerHTML =
+'<div class="stage-head"><span class="stage-title">Giai đoạn <span class="st-no"></span><span class="st-jp jp">期間</span></span>' +
+'<button type="button" class="btn btn-danger st-del">Xóa ・ 削除</button></div>' +
+'<div class="grid">' +
+'<div class="field"><label><span class="lb-vi">Từ tháng / năm<span class="req">*</span></span><span class="lb-jp jp">開始（年・月）</span></label><input type="month" class="st-from"></div>' +
+'<div class="field"><label><span class="lb-vi">Đến tháng / năm<span class="req">*</span></span><span class="lb-jp jp">終了（年・月）</span></label><input type="month" class="st-to">' +
+'<label class="now-check"><input type="checkbox" class="st-now"> Hiện đang làm ở đây ・ 現在も勤務中</label></div>' +
+'<div class="field"><label><span class="lb-vi">Tên công ty<span class="req">*</span></span><span class="lb-jp jp">会社名</span></label><input type="text" class="st-company" placeholder="Ví dụ: 株式会社○○製作所"></div>' +
+'<div class="field"><label><span class="lb-vi">Tư cách lưu trú ở giai đoạn này<span class="req">*</span></span><span class="lb-jp jp">この期間の在留資格</span></label><select class="st-visa"><option value="">— Chọn ・ 選択 —</option>'+opts+'</select></div>' +
+'<div class="field full"><label><span class="lb-vi">Nghiệp đoàn / Đơn vị hỗ trợ (nếu có)</span><span class="lb-jp jp">監理団体・登録支援機関（あれば）</span></label><input type="text" class="st-org" placeholder="Ví dụ: ○○協同組合 / 株式会社○○（登録支援機関）"></div>' +
+'<div class="field full"><label><span class="lb-vi">Nội dung công việc cụ thể<span class="req">*</span></span><span class="lb-jp jp">具体的な仕事内容</span></label>' +
+'<textarea class="st-job" placeholder="Viết cụ thể: làm sản phẩm gì, công đoạn nào, dùng máy / dụng cụ gì… Ví dụ: Trong kho logistics: phân loại hàng theo khu vực, kiểm tra số lượng, dán nhãn và đóng thùng; làm ca ngày, tăng ca khoảng 20 giờ/tháng."></textarea></div>' +
+'</div>';
+$("stages").appendChild(wrap);
+renumberStages();
+wrap.querySelector(".st-del").addEventListener("click", function(){
+if($$("#stages .stage").length <= 1){ toast("Cần ít nhất 1 giai đoạn làm việc ・ 1期間は必要です"); return;}
+wrap.remove(); renumberStages(); updateProgress();
+});
+var nowCb = wrap.querySelector(".st-now"), toInput = wrap.querySelector(".st-to");
+nowCb.addEventListener("change", function(){ toInput.disabled = nowCb.checked; if(nowCb.checked) toInput.value="";});
+$$("input,select,textarea", wrap).forEach(function(el){ el.addEventListener("input", updateProgress); el.addEventListener("change", updateProgress);});
+updateProgress();
+}
+function renumberStages(){
+$$("#stages .stage").forEach(function(st, i){ st.querySelector(".st-no").textContent = (i+1);});
+}
+$("addStage").addEventListener("click", addStage);
+addStage(); addStage();
+
+/* ---------- Kaiwa picker ---------- */
+$$("#kaiwaGrid .level-card").forEach(function(card){
+card.addEventListener("click", function(){
+$$("#kaiwaGrid .level-card").forEach(function(c){ c.classList.remove("selected");});
+card.classList.add("selected");
+kaiwaLevel = card.getAttribute("data-level");
+$("kaiwaErr").classList.remove("show");
+updateProgress();
+});
+});
+
+/* ---------- Certificates ---------- */
+var certPresets = {
+tokutei:{cat:"Tokuteigino ・ 特定技能", name:"", ph:"Ví dụ: 外食業 特定技能1号 技能測定試験 合格"},
+skill:{cat:"Kỹ năng nghề ・ 技能検定", name:"", ph:"Ví dụ: 機械加工 3級 技能検定 合格"},
+jlpt:{cat:"Tiếng Nhật ・ 日本語（JLPT/JFT）", name:"", ph:"Ví dụ: JLPT N3 / JFT-Basic A2"},
+drive:{cat:"Bằng lái xe ・ 運転免許", name:"", ph:"Ví dụ: 普通自動車免許 (AT)"},
+other:{cat:"Khác ・ その他", name:"", ph:"Tên chứng chỉ"}
+};
+function addCert(presetKey){
+var p = presetKey? certPresets[presetKey]: certPresets.other;
+var wrap = document.createElement("div");
+wrap.className = "cert";
+wrap.innerHTML =
+'<div class="stage-head"><span class="stage-title">Chứng chỉ <span class="ct-no"></span></span>' +
+'<button type="button" class="btn btn-danger ct-del">Xóa ・ 削除</button></div>' +
+'<div class="grid">' +
+'<div class="field"><label><span class="lb-vi">Loại chứng chỉ</span><span class="lb-jp jp">種類</span></label>' +
+'<select class="ct-cat"><option>Tokuteigino ・ 特定技能</option><option>Kỹ năng nghề ・ 技能検定</option><option>Tiếng Nhật ・ 日本語（JLPT/JFT）</option><option>Bằng lái xe ・ 運転免許</option><option>Khác ・ その他</option></select></div>' +
+'<div class="field"><label><span class="lb-vi">Ngày đỗ / ngày cấp</span><span class="lb-jp jp">合格日・取得日</span></label><input type="date" class="ct-date"></div>' +
+'<div class="field full"><label><span class="lb-vi">Tên chứng chỉ (ghi đúng như trên giấy chứng nhận)<span class="req">*</span></span><span class="lb-jp jp">資格名（証明書通り）</span></label><input type="text" class="ct-name" placeholder="'+p.ph+'"></div>' +
+'<div class="field full"><label><span class="lb-vi">Số chứng chỉ / điểm số (nếu có)</span><span class="lb-jp jp">合格番号・スコア（あれば）</span></label><input type="text" class="ct-note" placeholder="Ví dụ: 合格番号 0000000"></div>' +
+'</div>';
+if(presetKey) wrap.querySelector(".ct-cat").value = p.cat;
+$("certs").appendChild(wrap);
+renumberCerts();
+wrap.querySelector(".ct-del").addEventListener("click", function(){ wrap.remove(); renumberCerts(); toggleCertEmpty();});
+toggleCertEmpty();
+}
+function renumberCerts(){
+$$("#certs .cert").forEach(function(c, i){ c.querySelector(".ct-no").textContent = (i+1);});
+}
+function toggleCertEmpty(){
+$("certEmpty").style.display = $$("#certs .cert").length? "none": "block";
+}
+$$(".quick-add button").forEach(function(b){
+b.addEventListener("click", function(){ addCert(b.getAttribute("data-quick")); $("f_noCert").checked = false;});
+});
+addCert("tokutei");
+
+/* ---------- Family ---------- */
+function addFamily(){
+var wrap = document.createElement("div");
+wrap.className = "stage";
+wrap.innerHTML =
+'<div class="stage-head"><span class="stage-title">Thành viên <span class="fm-no"></span></span>' +
+'<button type="button" class="btn btn-danger fm-del">Xóa ・ 削除</button></div>' +
+'<div class="grid">' +
+'<div class="field"><label><span class="lb-vi">Quan hệ</span><span class="lb-jp jp">続柄</span></label><select class="fm-rel"><option>Bố ・ 父</option><option>Mẹ ・ 母</option><option>Anh trai ・ 兄</option><option>Chị gái ・ 姉</option><option>Em trai ・ 弟</option><option>Em gái ・ 妹</option><option>Vợ / Chồng ・ 配偶者</option><option>Con ・ 子</option></select></div>' +
+'<div class="field"><label><span class="lb-vi">Tuổi</span><span class="lb-jp jp">年齢</span></label><input type="number" class="fm-age" inputmode="numeric" placeholder="60"></div>' +
+'<div class="field"><label><span class="lb-vi">Họ tên</span><span class="lb-jp jp">氏名</span></label><input type="text" class="fm-name" placeholder="Ví dụ: Nguyễn Văn B"></div>' +
+'<div class="field"><label><span class="lb-vi">Nghề nghiệp</span><span class="lb-jp jp">職業</span></label><input type="text" class="fm-job" placeholder="Ví dụ: Làm ruộng"></div>' +
+'</div>';
+$("family").appendChild(wrap);
+renumberFamily();
+wrap.querySelector(".fm-del").addEventListener("click", function(){ wrap.remove(); renumberFamily();});
+}
+function renumberFamily(){
+$$("#family .stage").forEach(function(f, i){ f.querySelector(".fm-no").textContent = (i+1);});
+}
+$("addFamily").addEventListener("click", addFamily);
+addFamily();
+
+/* ---------- Uploads ---------- */
+$$(".upfile").forEach(function(inp){
+inp.addEventListener("change", function(){
+var box = inp.closest(".upbox");
+var names = Array.prototype.map.call(inp.files, function(f){ return f.name;});
+box.querySelector(".fname").textContent = names.length? names.join("、 "): "";
+var img = box.querySelector(".preview");
+if(inp.files.length && inp.files[0].type.indexOf("image") === 0){
+img.src = URL.createObjectURL(inp.files[0]); img.style.display = "block";
+}
+updateProgress();
+});
+});
+
+/* ---------- Start date ("ngay" option) ---------- */
+function startOk(){ return $("f_startNow").checked || !!$("f_startWhen").value; }
+$("f_startNow").addEventListener("change", function(){
+$("f_startWhen").disabled = $("f_startNow").checked;
+if($("f_startNow").checked) $("f_startWhen").value = "";
+updateProgress();
+});
+
+/* ---------- Progress ---------- */
+function stageComplete(st){
+return !!(st.querySelector(".st-from").value && st.querySelector(".st-company").value.trim() &&
+st.querySelector(".st-visa").value && st.querySelector(".st-job").value.trim() &&
+(st.querySelector(".st-to").value || st.querySelector(".st-now").checked));
+}
+function stageHasContent(st){
+return !!(st.querySelector(".st-from").value || st.querySelector(".st-to").value || st.querySelector(".st-now").checked ||
+st.querySelector(".st-company").value.trim() || st.querySelector(".st-visa").value ||
+st.querySelector(".st-org").value.trim() || st.querySelector(".st-job").value.trim());
+}
+function stageFilled(){
+var ok = 0, total = 0;
+$$("#stages .stage").forEach(function(st){
+/* Giai đoạn để trống hẳn (form mở sẵn / bấm thêm mà chưa dùng) không tính vào tiến độ */
+if(!stageHasContent(st) && total > 0) return;
+total++;
+if(stageComplete(st)) ok++;
+});
+return total? ok/total: 0;
+}
+function updateProgress(){
+var filled = 0;
+requiredIds.forEach(function(id){
+if(id === "f_startWhen"){ if(startOk()) filled++; }
+else if($(id).value && $(id).value.trim()) filled++;
+});
+var totalUnits = requiredIds.length + 2; /* kaiwa + first stage */
+var units = filled + (kaiwaLevel? 1: 0) + stageFilled();
+var pct = Math.round(units/totalUnits*100);
+$("pct").textContent = pct + "%";
+$("barFill").style.width = pct + "%";
+$("stickyPct").textContent = pct + "% đã điền ・ 入力済み";
+$("stickyHint").textContent = pct >= 100? "Đã đủ mục bắt buộc — bấm Gửi hồ sơ cho JTS!":
+(kaiwaLevel? "Tiếp tục điền các mục còn lại nhé": "Còn thiếu: mức giao tiếp kaiwa (mục 4B)");
+}
+$$("#candForm input, #candForm select, #candForm textarea").forEach(function(el){
+el.addEventListener("input", updateProgress); el.addEventListener("change", updateProgress);
+});
+updateProgress();
+
+/* ---------- Toast ---------- */
+var toastTimer;
+function toast(msg, ms){
+var t = $("toast"); t.textContent = msg; t.classList.add("show");
+clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove("show");}, ms || 2600);
+}
+
+/* ---------- Validation + summary ---------- */
+function val(id){ var el = $(id); return el? el.value.trim(): "";}
+function fmtDate(v){ return v? v.replace(/-/g,"/"): "";}
+function fmtMonth(v){ return v? v.replace("-","/"): "";}
+
+function validate(){
+var firstBad = null;
+requiredIds.forEach(function(id){
+var el = $(id), bad = (id === "f_startWhen")? !startOk(): (!el.value || !el.value.trim());
+el.classList.toggle("invalid", bad);
+var err = document.querySelector('[data-err="'+id+'"]');
+if(err) err.classList.toggle("show", bad);
+if(bad &&!firstBad) firstBad = el;
+});
+if(!kaiwaLevel){ $("kaiwaErr").classList.add("show"); if(!firstBad) firstBad = $("s4");}
+/* Giai đoạn để trống hẳn thì bỏ qua (ứng viên chỉ có 1 công ty vẫn gửi được);
+   chỉ chặn khi giai đoạn đã điền dở bị thiếu, hoặc chưa có giai đoạn nào hoàn chỉnh. */
+var stageBad = false, stageCompleteCount = 0;
+$$("#stages .stage").forEach(function(st){
+if(stageComplete(st)){ stageCompleteCount++; st.style.borderColor = ""; return; }
+if(stageHasContent(st)){ st.style.borderColor = "var(--warn)"; stageBad = true; }
+else st.style.borderColor = "";
+});
+if(stageCompleteCount === 0) stageBad = true;
+if(stageBad &&!firstBad) firstBad = $("s3");
+if(firstBad){
+firstBad.scrollIntoView({behavior:"smooth", block:"center"});
+toast("Còn mục bắt buộc chưa điền (đánh dấu đỏ) ・ 必須項目を確認してください", 5200);
+return false;
+}
+return true;
+}
+
+function buildSummary(){
+var L = [];
+L.push("===== HỒ SƠ ỨNG VIÊN ・ 候補者情報 =====");
+L.push("Ngày gửi ・ 作成日: " + new Date().toLocaleDateString("ja-JP"));
+L.push("");
+L.push("");
+L.push("Họ tên: " + val("f_name") + " (" + val("f_kana") + ")");
+L.push("Ngày sinh: " + fmtDate(val("f_dob")) + " / Giới tính: " + val("f_gender") + " / Quốc tịch: " + val("f_nation"));
+L.push("Hôn nhân: " + (val("f_marital") || "—"));
+L.push("Chiều cao: " + (val("f_height")||"—") + "cm / Cân nặng: " + (val("f_weight")||"—") + "kg");
+L.push("Size quần áo / giày: " + (val("f_sizes")||"—"));
+L.push("Điện thoại: " + val("f_phone") + " / Email・LINE: " + (val("f_contact2")||"—"));
+L.push("");
+L.push("");
+L.push("〒" + (val("f_zip")||"—") + " " + val("f_address"));
+L.push("Ga gần nhất: " + (val("f_station")||"—"));
+var visa = val("f_visa") === "other"? val("f_visaOther"): val("f_visa");
+L.push("Tư cách lưu trú: " + visa + " / Hết hạn: " + fmtDate(val("f_visaExp")));
+L.push("Ngày đầu tiên đến Nhật: " + fmtDate(val("f_arrival")));
+L.push("");
+L.push("");
+var stageNo = 0;
+$$("#stages .stage").forEach(function(st){
+if(!stageHasContent(st)) return;
+stageNo++;
+var from = fmtMonth(st.querySelector(".st-from").value);
+var to = st.querySelector(".st-now").checked? "現在 (đến nay)": fmtMonth(st.querySelector(".st-to").value);
+L.push("— Giai đoạn " + stageNo + ": " + from + " ～ " + to);
+L.push(" Công ty: " + st.querySelector(".st-company").value.trim());
+L.push(" Tư cách lưu trú lúc đó: " + st.querySelector(".st-visa").value);
+var org = st.querySelector(".st-org").value.trim();
+if(org) L.push(" Nghiệp đoàn / đơn vị hỗ trợ: " + org);
+L.push(" Nội dung công việc: " + st.querySelector(".st-job").value.trim());
+});
+if(val("f_workVN")){ L.push("Kinh nghiệm tại Việt Nam: " + val("f_workVN"));}
+L.push("");
+L.push("");
+L.push("Chứng chỉ JLPT đã đỗ: " + val("f_jlpt") + (val("f_jpOther")? " / Khác: " + val("f_jpOther"): ""));
+L.push("Giao tiếp (kaiwa) tự đánh giá: " + kaiwaLevel);
+L.push("Phỏng vấn bằng tiếng Nhật: " + (val("f_interviewJp")||"—") + " / Đọc viết Kanji: " + (val("f_kanji")||"—"));
+L.push("");
+L.push("");
+var certs = $$("#certs .cert");
+if(!certs.length || $("f_noCert").checked){ L.push("Không có chứng chỉ nào.");}
+certs.forEach(function(c, i){
+L.push((i+1) + ". [" + c.querySelector(".ct-cat").value + "] " + c.querySelector(".ct-name").value.trim() +
+" — Ngày đỗ/cấp: " + (fmtDate(c.querySelector(".ct-date").value)||"—") +
+(c.querySelector(".ct-note").value.trim()? " — " + c.querySelector(".ct-note").value.trim(): ""));
+});
+L.push("");
+L.push("");
+L.push(val("f_school") + (val("f_major")? " / Ngành: " + val("f_major"): "") +
+(val("f_schoolYears")? " / " + val("f_schoolYears"): "") + (val("f_eduLevel")? " / " + val("f_eduLevel"): ""));
+L.push("");
+L.push("");
+$$("#family .stage").forEach(function(f){
+var n = f.querySelector(".fm-name").value.trim();
+if(n) L.push("- " + f.querySelector(".fm-rel").value + ": " + n + ", " + (f.querySelector(".fm-age").value||"—") + " tuổi, nghề: " + (f.querySelector(".fm-job").value.trim()||"—"));
+});
+L.push("Nhà ở: " + (val("f_housing")||"—") + " / " + (val("f_roommates")||"—"));
+L.push("Phương tiện đi làm: " + (val("f_commute")||"—") + " / Bằng lái tại Nhật: " + (val("f_license")||"—"));
+L.push("");
+L.push("");
+L.push("Công việc mong muốn: " + val("f_wishJob"));
+L.push("Nơi làm mong muốn: " + (val("f_wishPlace")||"—") + " / Lương mong muốn: " + (val("f_wishSalary")||"—"));
+L.push("Ngày có thể bắt đầu làm việc ・ 入社可能日: " + ($("f_startNow").checked? "Ngay lập tức ・ すぐ入社可能": fmtDate(val("f_startWhen"))));
+L.push("Thời gian phỏng vấn được: " + (val("f_interviewWhen")||"—"));
+L.push("Nenkin: " + (val("f_nenkin")||"—"));
+if(val("f_remarks")) L.push("Ghi chú: " + val("f_remarks"));
+L.push("");
+L.push("");
+var anyFile = false;
+$$(".upfile").forEach(function(inp){
+if(inp.files.length){
+anyFile = true;
+Array.prototype.forEach.call(inp.files, function(f){ L.push("- " + inp.getAttribute("data-label") + ": " + f.name);});
+}
+});
+if(!anyFile) L.push("(Chưa chọn ảnh — sẽ gửi riêng qua LINE/Email)");
+L.push("");
+L.push("===== HẾT ・ 以上 =====");
+return L.join("\n");
+}
+
+var lineTruncated = false;
+function buildMailHref(text){
+var subj = encodeURIComponent("Hồ sơ ứng viên: " + val("f_name"));
+var full = "mailto:p.tran@jts-jobs.com?subject=" + subj + "&body=" + encodeURIComponent(text);
+if(full.length <= 1800) return full;
+var note = "Hồ sơ đã được sao chép sẵn — hãy DÁN (Paste / 貼り付け) nội dung hồ sơ vào dưới dòng này:\n"
++ "コピー済みの内容をこの下に貼り付けてください。\n\n";
+return "mailto:p.tran@jts-jobs.com?subject=" + subj + "&body=" + encodeURIComponent(note);
+}
+/* ---------- Direct submit to the JTS Google Drive receiver (Apps Script) ---------- */
+var RECEIVER_ENDPOINT = "https://script.google.com/macros/s/AKfycbzJz9H7VyEPd7zJA5gIClTUiFkOPQmLLUwNXfcMzQwfNCjmPNDhKvUE997tGkWpAhwk/exec";
+var isSending = false;
+var sendWatchdog = null;
+function collectFields(){
+var fields = {};
+fields.name = val("f_name"); fields.kana = val("f_kana"); fields.dob = val("f_dob");
+fields.gender = val("f_gender"); fields.nationality = val("f_nation"); fields.marital = val("f_marital");
+fields.height = val("f_height"); fields.weight = val("f_weight"); fields.sizes = val("f_sizes");
+fields.phone = val("f_phone"); fields.contact2 = val("f_contact2");
+fields.zip = val("f_zip"); fields.station = val("f_station"); fields.address = val("f_address");
+fields.visa = val("f_visa") === "other"? val("f_visaOther"): val("f_visa");
+fields.visaOther = val("f_visaOther"); fields.visaExp = val("f_visaExp"); fields.arrival = val("f_arrival");
+fields.stages = $$("#stages .stage").filter(function(st){ return stageHasContent(st); }).map(function(st){
+return { from: st.querySelector(".st-from").value, to: st.querySelector(".st-now").checked? "現在": st.querySelector(".st-to").value,
+now: st.querySelector(".st-now").checked, company: st.querySelector(".st-company").value.trim(),
+visa: st.querySelector(".st-visa").value, org: st.querySelector(".st-org").value.trim(),
+job: st.querySelector(".st-job").value.trim() };
+});
+fields.workVN = val("f_workVN");
+fields.jlpt = val("f_jlpt"); fields.jpOther = val("f_jpOther"); fields.kaiwaLevel = kaiwaLevel;
+fields.interviewJp = val("f_interviewJp"); fields.kanji = val("f_kanji");
+fields.certs = $$("#certs .cert").map(function(c){
+return { cat: c.querySelector(".ct-cat").value, date: c.querySelector(".ct-date").value,
+name: c.querySelector(".ct-name").value.trim(), note: c.querySelector(".ct-note").value.trim() };
+});
+fields.noCert = $("f_noCert").checked;
+fields.school = val("f_school"); fields.major = val("f_major"); fields.schoolYears = val("f_schoolYears"); fields.eduLevel = val("f_eduLevel");
+fields.family = $$("#family .stage").map(function(f){
+return { rel: f.querySelector(".fm-rel").value, age: f.querySelector(".fm-age").value,
+name: f.querySelector(".fm-name").value.trim(), job: f.querySelector(".fm-job").value.trim() };
+});
+fields.housing = val("f_housing"); fields.roommates = val("f_roommates");
+fields.commute = val("f_commute"); fields.license = val("f_license");
+fields.wishJob = val("f_wishJob"); fields.wishPlace = val("f_wishPlace"); fields.wishSalary = val("f_wishSalary");
+fields.startWhen = $("f_startNow").checked? "すぐ入社可能": val("f_startWhen"); fields.startNow = $("f_startNow").checked;
+fields.interviewWhen = val("f_interviewWhen"); fields.nenkin = val("f_nenkin"); fields.remarks = val("f_remarks");
+return fields;
+}
+function fileFallbackBase64(file){
+return new Promise(function(resolve){
+var reader = new FileReader();
+reader.onload = function(){
+var dataUrl = String(reader.result || "");
+var comma = dataUrl.indexOf(",");
+resolve({ filename: file.name, mimeType: file.type || "application/octet-stream", base64: comma >= 0? dataUrl.slice(comma + 1): dataUrl });
+};
+reader.onerror = function(){ resolve(null); };
+reader.readAsDataURL(file);
+});
+}
+function processFile(file){
+if(!file || file.type.indexOf("image") !== 0) return fileFallbackBase64(file);
+return new Promise(function(resolve){
+var url = URL.createObjectURL(file);
+var img = new Image();
+img.onload = function(){
+try{
+var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+if(!w || !h){ URL.revokeObjectURL(url); fileFallbackBase64(file).then(resolve); return; }
+var scale = Math.min(1, 1600 / Math.max(w, h));
+var cw = Math.max(1, Math.round(w * scale)), ch = Math.max(1, Math.round(h * scale));
+var cv = document.createElement("canvas"); cv.width = cw; cv.height = ch;
+var ctx = cv.getContext("2d"); ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, cw, ch); ctx.drawImage(img, 0, 0, cw, ch);
+URL.revokeObjectURL(url);
+var dataUrl = cv.toDataURL("image/jpeg", 0.85);
+var base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
+var stem = (file.name || "photo").replace(/\.[^.]+$/, "");
+resolve({ filename: stem + ".jpg", mimeType: "image/jpeg", base64: base64 });
+}catch(e){ URL.revokeObjectURL(url); fileFallbackBase64(file).then(resolve); }
+};
+img.onerror = function(){ URL.revokeObjectURL(url); fileFallbackBase64(file).then(resolve); };
+img.src = url;
+});
+}
+/* Bọc mỗi ảnh trong một mốc thời gian: nếu giải mã / nén ảnh trên điện thoại bị treo
+   (ảnh rất lớn, webview LINE/Zalo...) thì tự lùi về đọc file gốc, rồi bỏ qua ảnh đó —
+   khâu chuẩn bị gửi không bao giờ treo vô hạn làm nút Gửi bị khóa chết. */
+function processFileSafe(file){
+function timeout(ms, v){ return new Promise(function(res){ setTimeout(function(){ res(v); }, ms); }); }
+function rawFallback(){ return Promise.race([fileFallbackBase64(file), timeout(20000, null)]); }
+return Promise.race([processFile(file), timeout(20000, "T")]).then(function(r){
+return r === "T"? rawFallback(): r;
+}, function(){ return rawFallback(); });
+}
+function collectFiles(){
+var jobs = [];
+$$(".upfile").forEach(function(inp){
+Array.prototype.forEach.call(inp.files, function(f){ jobs.push(processFileSafe(f)); });
+});
+return Promise.all(jobs).then(function(list){ return list.filter(Boolean); });
+}
+function setSendingState(on){
+isSending = on;
+var mainBtn = $("mainSubmitBtn"), stickyBtn = $("stickySubmit");
+if(mainBtn){ mainBtn.disabled = on; mainBtn.textContent = on? "Đang gửi... ・ 送信中...": "Gửi hồ sơ cho JTS ・ JTSへ送信"; }
+if(stickyBtn){ stickyBtn.disabled = on; stickyBtn.textContent = on? "Đang gửi... ・ 送信中...": "Gửi hồ sơ cho JTS ・ JTSへ送信"; }
+$("sendProgress").style.display = on? "block": "none";
+}
+/* ---------- Lớp gửi dự phòng: form cổ điển + iframe ẩn ----------
+   Khi fetch bị chặn (ví dụ trong khung nhúng của trang công khai),
+   gửi cùng payload qua một form HTML thường vào iframe ẩn.
+   Bộ nhận v2 nhận JSON trong trường form tên "payload". */
+var formSubmitting = false;
+var formFallbackTimer = null;
+var hiddenFormEls = null;
+function onSendSuccess(){
+if(sendWatchdog){ clearTimeout(sendWatchdog); sendWatchdog = null; }
+setSendingState(false);
+$("sendSuccess").style.display = "block";
+$("sendSuccess").scrollIntoView({behavior:"smooth", block:"center"});
+toast("Đã gửi hồ sơ thành công! ・ 送信が完了しました");
+}
+function onSendFailure(){
+if(sendWatchdog){ clearTimeout(sendWatchdog); sendWatchdog = null; }
+setSendingState(false);
+$("fallbackArea").style.display = "block";
+copySummary();
+setHint("Gửi trực tiếp không thành công. Hãy bấm <b>“① Sao chép hồ sơ”</b> rồi bấm <b>“② Mở LINE gửi cho JTS”</b> (hoặc “Gửi qua Email”), <b>dán (Paste)</b> vào và gửi — kèm ảnh ở mục 9. ・ <span class='jp'>コピーしてLINEやメールに貼り付けて送ってください。</span>");
+toast("Gửi trực tiếp không thành công — hãy thử cách khác ・ 直接送信できませんでした");
+$("fallbackArea").scrollIntoView({behavior:"smooth", block:"start"});
+}
+function ensureHiddenForm(){
+if(hiddenFormEls) return hiddenFormEls;
+var iframe = document.createElement("iframe");
+iframe.name = "jtsReceiverFrame";
+iframe.style.display = "none";
+iframe.setAttribute("aria-hidden", "true");
+iframe.addEventListener("load", function(){
+if(!formSubmitting) return;
+formSubmitting = false;
+if(formFallbackTimer){ clearTimeout(formFallbackTimer); formFallbackTimer = null; }
+onSendSuccess();
+});
+var form = document.createElement("form");
+form.method = "POST";
+form.action = RECEIVER_ENDPOINT;
+form.target = "jtsReceiverFrame";
+form.style.display = "none";
+var field = document.createElement("input");
+field.type = "hidden";
+field.name = "payload";
+form.appendChild(field);
+document.body.appendChild(iframe);
+document.body.appendChild(form);
+hiddenFormEls = { form: form, field: field, iframe: iframe };
+return hiddenFormEls;
+}
+function submitViaHiddenForm(payloadJson){
+var els;
+try{ els = ensureHiddenForm(); }catch(e){ onSendFailure(); return; }
+els.field.value = payloadJson;
+formSubmitting = true;
+if(formFallbackTimer) clearTimeout(formFallbackTimer);
+formFallbackTimer = setTimeout(function(){
+if(!formSubmitting) return;
+formSubmitting = false;
+formFallbackTimer = null;
+onSendFailure();
+}, 25000);
+try{ els.form.submit(); }catch(e){
+formSubmitting = false;
+if(formFallbackTimer){ clearTimeout(formFallbackTimer); formFallbackTimer = null; }
+onSendFailure();
+}
+}
+function submitForm(){
+if(isSending) return;
+if(!validate()) return;
+var text = buildSummary();
+$("summaryText").value = text;
+/* Gắn sẵn href cho các nút dự phòng (chỉ hiện khi gửi trực tiếp thất bại),
+   để khi ứng viên bấm vào là trình duyệt tự mở LINE / ứng dụng mail. */
+$("btnMail").href = buildMailHref(text);
+var lineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
+lineTruncated = lineUrl.length > 3000;
+if(lineTruncated){
+lineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent("【JTS】Hồ sơ ứng viên ・ 候補者情報：" + val("f_name") + "\n（Nội dung chi tiết sẽ dán ở tin nhắn tiếp theo ・ 詳細は次のメッセージに貼り付けます）");
+}
+$("btnLine").href = lineUrl;
+$("sendSuccess").style.display = "none";
+$("fallbackArea").style.display = "none";
+$("result").classList.add("show");
+setSendingState(true);
+/* Đồng hồ canh toàn cục: nếu cả hai lớp gửi đều không có hồi âm sau 75 giây
+   (mạng treo, webview chặn lặng lẽ...) thì tự nhả nút và hiện cách gửi dự phòng,
+   thay vì để ứng viên kẹt ở trạng thái "Đang gửi..." không bấm lại được. */
+if(sendWatchdog) clearTimeout(sendWatchdog);
+sendWatchdog = setTimeout(function(){
+sendWatchdog = null;
+if(isSending && !formSubmitting) onSendFailure();
+}, 75000);
+$("result").scrollIntoView({behavior:"smooth", block:"start"});
+collectFiles().then(function(files){
+var payload = { name: val("f_name"), summary: text, fields: collectFields(), files: files };
+var payloadJson = JSON.stringify(payload);
+return fetch(RECEIVER_ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payloadJson }).then(function(){
+/* Apps Script chuyển hướng và không trả CORS header nên response là opaque:
+   fetch hoàn thành mà không ném lỗi mạng = đã gửi. */
+onSendSuccess();
+}, function(){
+/* Lớp 2: fetch bị chặn / thất bại — tự động gửi lại cùng payload qua
+   form cổ điển + iframe ẩn, chưa hiện bảng lỗi vội. Chỉ khi iframe
+   không load trong 25 giây mới hiện cách gửi dự phòng thủ công. */
+submitViaHiddenForm(payloadJson);
+});
+}).catch(function(){
+/* Chỉ tới đây khi khâu chuẩn bị payload / ảnh lỗi trước lúc gửi. */
+if(!formSubmitting) onSendFailure();
+});
+}
+$("candForm").addEventListener("submit", function(e){ e.preventDefault(); submitForm();});
+$("stickySubmit").addEventListener("click", submitForm);
+
+function setHint(msg){ $("sendHint").innerHTML = msg; }
+function copySummary(){
+var ta = $("summaryText");
+if(navigator.clipboard && navigator.clipboard.writeText){
+return navigator.clipboard.writeText(ta.value).then(function(){ return true; }, function(){
+ta.select(); try{ return !!document.execCommand("copy"); }catch(e){ return false; }
+});
+}
+ta.select();
+try{ return Promise.resolve(!!document.execCommand("copy")); }catch(e){ return Promise.resolve(false); }
+}
+$("btnCopy").addEventListener("click", function(){
+copySummary().then(function(ok){
+if(ok){
+toast("Đã sao chép hồ sơ ・ コピーしました");
+setHint("Đã sao chép toàn bộ hồ sơ. Giờ hãy mở <b>LINE</b> (gửi cho JTS) hoặc <b>Email</b> (tới p.tran@jts-jobs.com), <b>dán (Paste)</b> vào nội dung rồi bấm gửi. Đừng quên gửi kèm ảnh ở mục 9. ・ <span class='jp'>コピーしました。LINEやメールに貼り付けて送ってください。</span>");
+} else {
+$("summaryText").select();
+toast("Hãy chạm giữ vào ô nội dung hồ sơ và chọn Sao chép ・ 長押しでコピーしてください");
+}
+});
+});
+
+/* ---------- LINE — liên kết thật (href đã gắn sẵn ở submitForm) ----------
+   Bấm vào là LINE mở ra (chọn đoạn chat với JTS) với nội dung đã điền sẵn nếu hồ sơ ngắn;
+   hồ sơ dài thì LINE mở kèm dòng giới thiệu, và nội dung đầy đủ đã được sao chép sẵn để dán tiếp.
+   Chạm này không preventDefault nên trình duyệt luôn xử lý như một lần mở link bình thường. ---------- */
+$("btnLine").addEventListener("click", function(){
+copySummary();
+if(lineTruncated){
+setHint("LINE sẽ mở kèm dòng giới thiệu. Sau khi chọn đoạn chat với JTS và gửi dòng đó, hãy <b>dán (Paste)</b> thêm nội dung hồ sơ đầy đủ (đã sao chép sẵn) vào tin nhắn tiếp theo, rồi gửi kèm ảnh ở mục 9. ・ <span class='jp'>LINEが開きます。紹介文を送ったあと、コピー済みの詳細を貼り付けて送ってください。</span>");
+} else {
+setHint("LINE sẽ mở với nội dung hồ sơ đã điền sẵn — hãy chọn đoạn chat với <b>JTS</b> và bấm gửi, rồi gửi kèm các ảnh ở mục 9. Nếu nội dung chưa hiện sẵn, hãy <b>dán (Paste)</b> (hồ sơ đã được sao chép sẵn). ・ <span class='jp'>LINEが開きます。JTSとのトークを選んで送信してください。</span>");
+}
+});
+
+/* ---------- Chia sẻ hệ thống (lựa chọn phụ) ----------
+   Bên trong khung nhúng của trang công khai, bảng chia sẻ hệ thống thường bị chặn và bị từ chối.
+   Vì vậy nút này chỉ còn là lựa chọn phụ, chỉ gửi phần chữ (đính file là nguyên nhân hay bị từ chối nhất);
+   nếu không mở được thì tự sao chép hồ sơ để dán vào LINE/Email. ---------- */
+$("btnShare").addEventListener("click", function(){
+var text = $("summaryText").value;
+function shareFallback(){
+copySummary().then(function(ok){
+toast(ok? "Thiết bị này không mở được mục chia sẻ — đã sao chép hồ sơ, hãy dán vào LINE/Email ・ コピーしました"
+: "Hãy bấm “① Sao chép hồ sơ” rồi dán vào LINE/Email ・ コピーして送ってください");
+setHint("Hãy dùng cách chắc chắn nhất: bấm <b>“① Sao chép hồ sơ”</b> rồi bấm <b>“② Mở LINE gửi cho JTS”</b> (hoặc “Gửi qua Email”), <b>dán (Paste)</b> vào và gửi — kèm ảnh ở mục 9. ・ <span class='jp'>コピーしてLINEやメールに貼り付けて送ってください。</span>");
+});
+}
+if(!navigator.share){ shareFallback(); return; }
+navigator.share({ title: "Hồ sơ ứng viên ・ 候補者情報 — JTS", text: text }).then(function(){
+setHint("Đã mở mục chia sẻ. <b>Lưu ý:</b> cách này chỉ gửi phần chữ — hãy gửi kèm <b>ảnh chân dung, thẻ lưu trú và chứng chỉ (mục 9)</b> qua LINE / Email cho JTS. ・ <span class='jp'>写真は別途LINEまたはメールで送ってください。</span>");
+}, function(err){
+if(err && err.name === "AbortError") return;
+shareFallback();
+});
+});
+
+/* ---------- Email — liên kết mailto thật (href đã gắn sẵn ở submitForm với nội dung phù hợp) ----------
+   Không preventDefault, không tạo link tạm: một chạm thật trên thẻ <a> để trình duyệt tự mở ứng dụng mail.
+   Nội dung ngắn nằm sẵn trong email; nội dung dài thì email có sẵn dòng hướng dẫn và hồ sơ đã được
+   sao chép sẵn — việc duy nhất còn lại trong chạm này là sao chép lại cho chắc (không chặn điều hướng). ---------- */
+$("btnMail").addEventListener("click", function(){
+copySummary();
+var text = $("summaryText").value;
+var full = "mailto:p.tran@jts-jobs.com?subject=x&body=" + encodeURIComponent(text);
+if(full.length <= 1800){
+setHint("Ứng dụng email đã mở với nội dung hồ sơ có sẵn — bạn chỉ cần bấm <b>Gửi / Send</b> trong ứng dụng email, và gửi kèm ảnh mục 9 qua LINE nếu chưa đính kèm. ・ <span class='jp'>メールが開きました。そのまま送信してください。</span>");
+} else {
+setHint("<b>Quan trọng:</b> hồ sơ khá dài nên không tự điền hết vào email được. Toàn bộ nội dung <b>đã được sao chép sẵn</b> — khi ứng dụng email mở ra, hãy chạm vào phần nội dung thư, chọn <b>Dán (Paste)</b> rồi bấm Gửi. Nếu email vẫn không mở, hãy dán nội dung đã sao chép vào <b>LINE</b> gửi cho JTS. ・ <span class='jp'>内容はコピー済みです。メール本文に貼り付けて送信してください。</span>");
+}
+});
+$("btnDownload").addEventListener("click", function(){
+var blob = new Blob([$("summaryText").value], {type:"text/plain;charset=utf-8"});
+var a = document.createElement("a");
+a.href = URL.createObjectURL(blob);
+a.download = "Ho-so-ung-vien_" + (val("f_name").replace(/\s+/g,"-") || "JTS") + ".txt";
+document.body.appendChild(a); a.click(); a.remove();
+toast("Đã tải file hồ sơ ・ ダウンロードしました");
+});
+
+/* ---------- QR code (opens this form) ---------- */
+var qrObj = null;
+(function buildQR(){
+var url = "https://muse.ai/s/form-th-ng-tin-ng-vi-n-xdt6xewxf4mxexbj/WBnrMa5zEyXMW3l7e1UUU9bBPyugmrL7ny-4hik04_0";
+$("qrUrl").textContent = url;
+if(typeof qrcode !== "function"){
+$("qrBox").innerHTML = '<div class="qr-fallback">Không tải được mã QR — hãy gửi link ở trên cho ứng viên. ・ QRを表示できませんでした。上のリンクを送ってください。</div>';
+$("btnQrPng").style.display = "none";
+return;
+}
+try{
+qrObj = qrcode(0, "M");
+qrObj.addData(url);
+qrObj.make();
+$("qrBox").innerHTML = qrObj.createSvgTag(5, 10);
+}catch(e){
+$("qrBox").innerHTML = '<div class="qr-fallback">Không tạo được mã QR — hãy gửi link ở trên cho ứng viên.</div>';
+$("btnQrPng").style.display = "none";
+}
+})();
+$("btnQrPng").addEventListener("click", function(){
+if(!qrObj){ toast("Chưa có mã QR để tải"); return;}
+var n = qrObj.getModuleCount(), scale = Math.max(4, Math.floor(560 / n)), size = n * scale, quiet = scale * 2;
+var cv = document.createElement("canvas");
+cv.width = size + quiet * 2; cv.height = size + quiet * 2;
+var ctx = cv.getContext("2d");
+ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, cv.width, cv.height);
+ctx.fillStyle = "#000000";
+for(var r = 0; r < n; r++) for(var c = 0; c < n; c++){
+if(qrObj.isDark(r, c)) ctx.fillRect(quiet + c * scale, quiet + r * scale, scale, scale);
+}
+var a = document.createElement("a");
+a.href = cv.toDataURL("image/png");
+a.download = "QR-form-thong-tin-ung-vien.png";
+document.body.appendChild(a); a.click(); a.remove();
+toast("Đã tải ảnh mã QR ・ QR画像を保存しました");
+});
+})();
+</script>
+</body>
+</html>
