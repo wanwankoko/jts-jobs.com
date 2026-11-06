@@ -16,7 +16,13 @@
   .logo small{display:block;font-size:11px;color:var(--sub);font-weight:400;letter-spacing:.14em}
   .nav-links{display:flex;gap:26px;font-size:14px}
   .nav-links a{color:var(--ink)}
-  @media(max-width:720px){.nav-links{display:none}}
+  @media(max-width:720px){
+    .nav{flex-wrap:wrap;row-gap:8px}
+    .nav-links{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13.5px;order:3;width:100%}
+    .logo{font-size:16px}
+    .logo img{height:42px!important;width:42px!important}
+    header .nav>div:last-child{font-size:11px!important}
+  }
   /* hero */
   .hero{background:linear-gradient(135deg,#EAF3FC 0%,#DCEBF9 45%,#EAF0F8 100%);padding:72px 0 64px}
   .hero h1{font-size:34px;line-height:1.5;color:var(--navy);font-weight:700;letter-spacing:.02em}
